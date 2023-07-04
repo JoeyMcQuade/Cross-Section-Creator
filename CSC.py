@@ -4,6 +4,8 @@ from secret import *
 
 def cross_section_creator(value: int, profile_list: list):
         profile_dict = profile_dict_constructor(profile_list, value)
+        if value > 0:
+                plt.clf()
         plt.title(f'Cross Section {value}')
         plt.xlabel('Chainage (m)')
         plt.ylabel('Level (m)')
