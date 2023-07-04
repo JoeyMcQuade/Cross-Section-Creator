@@ -3,6 +3,18 @@ from ExcelData import *
 from secret import *
 
 def cross_section_creator(value: int, profile_list: list):
+        """
+        Parameters:
+        -----------
+        value: int
+                value of a profile in the profile_set
+        profile_list: list
+                list of lists containing every row in the excel file
+
+        Notes
+        -----
+        Does not return anything, but produces a graph utilising matplotlib for all profiles in the profile list.
+        """
         profile_dict = profile_dict_constructor(profile_list, value)
         if value > 0:
                 plt.clf()
