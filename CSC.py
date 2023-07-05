@@ -2,7 +2,13 @@ from matplotlib import pyplot as plt
 from ExcelData import *
 from secret import PNG_PATH
 
-def cross_section_creator(value: int, profile_list: list):
+
+TTdf = pd.read_excel(TT_SECRET_PATH, engine='openpyxl')
+TTprofile_list = TTdf.values.tolist()
+Rdf = pd.read_excel(R_SECRET_PATH, engine='openpyxl')
+Rprofile_list = Rdf.values.tolist()
+
+def cross_section_creator(value: int, TTprofile_list: list, Rprofile_list: list):
         """
         Parameters:
         -----------
@@ -15,18 +21,23 @@ def cross_section_creator(value: int, profile_list: list):
         -----
         Does not return anything, but produces a graph utilising matplotlib for all profiles in the profile list.
         """
-        profile_dict = profile_dict_constructor(profile_list, value)
+        TTprofile_dict = profile_dict_constructor(TTprofile_list, value)
+        Rprofile_dict = profile_dict_constructor(Rprofile_list, value)
         if value > 0:
                 plt.clf()
         plt.figure(figsize=(15, 10))
         plt.title(f'Cross Section {value}')
         plt.xlabel('Chainage (m)')
         plt.ylabel('Level (m)')
-        x = profile_dict[value]['Chainage']
-        y = profile_dict[value]['Z']
+        TTx = TTprofile_dict[value]['Chainage']
+        TTy = TTprofile_dict[value]['Z']
+        Rx = Rprofile_dict[value]['Chainage']
+        Ry = Rprofile_dict[value]['Z']
         plt.minorticks_on()
-        plt.plot(x, y)
+        plt.plot(TTx, TTy, label = '2023 Cross Section')
+        plt.plot(Rx, Ry, label = 'Ramboll Cross Section')
+        plt.legend()
         plt.savefig(f'{PNG_PATH}//Cross Section {value}.png')
 
 for value in profile_set:
-        cross_section_creator(value, profile_list)
+        cross_section_creator(value, TTprofile_list, Rprofile_list)
