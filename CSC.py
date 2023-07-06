@@ -34,10 +34,13 @@ def cross_section_creator(value: int, TTprofile_list: list, Rprofile_list: list)
         Rx = Rprofile_dict[value]['Chainage']
         Ry = Rprofile_dict[value]['Z']
         plt.minorticks_on()
-        plt.plot(TTx, TTy, label = '2023 Cross Section')
         plt.plot(Rx, Ry, label = 'Ramboll Cross Section')
+        plt.plot(TTx, TTy, label = 'Waterhouse Cross Section')
+        plt.fill_between(Rx, -0.74, 1.54, color='b', alpha=0.1, label="mean water range")
         plt.legend()
-        plt.savefig(f'{PNG_PATH}//Cross Section {value}.png')
+        plt.savefig(f'{PNG_PATH}//Cross Section {value}.pdf')
+
+
 
 for value in profile_set:
         cross_section_creator(value, TTprofile_list, Rprofile_list)
