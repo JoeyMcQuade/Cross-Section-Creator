@@ -33,10 +33,12 @@ def cross_section_creator(value: int, TTprofile_list: list, Rprofile_list: list)
         TTy = TTprofile_dict[value]['Z']
         Rx = Rprofile_dict[value]['Chainage']
         Ry = Rprofile_dict[value]['Z']
+        ax = plt.subplot()
         plt.minorticks_on()
         plt.plot(Rx, Ry, label = 'Ramboll Cross Section')
-        plt.plot(TTx, TTy, label = 'Waterhouse Cross Section')
+        plt.plot(TTx, TTy, label = 'WA Cross Section')
         plt.fill_between(Rx, -0.74, 1.54, color='b', alpha=0.1, label="mean water range")
+        ax.set_aspect('equal')
         plt.legend()
         plt.savefig(f'{PNG_PATH}//Cross Section {value}.pdf')
 
